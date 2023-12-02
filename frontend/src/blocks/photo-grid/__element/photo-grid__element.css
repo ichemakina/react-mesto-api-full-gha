@@ -1,0 +1,8 @@
+.photo-grid__element {
+    background-color: #fff;
+    width: 282px;
+    border-radius: 10px;
+    padding-bottom: 31px;
+    margin: 0 auto;
+    position: relative;
+}

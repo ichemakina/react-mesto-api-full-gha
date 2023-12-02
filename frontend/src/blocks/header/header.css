@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 45px;
+    padding-bottom: 41px;
+    margin: 0 auto;
+    max-width: 880px;
+    border-bottom: 1px solid #545454;
+}
+
+/* .header::after{
+    content: '';
+    background-color: #545454;
+    height: 1px;
+    display: block;
+    margin-top: 41px;
+    opacity: 0.7;
+} */
+
+@media screen and (max-width: 910px) {
+    .header {
+        max-width: calc(100% - 25px*2);
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .header {
+        max-width: 100%;
+        margin-top: 28px;
+    }
+
+    .header::after{
+        margin-top: 31.6px;
+        width: 100%;
+    }
+}
