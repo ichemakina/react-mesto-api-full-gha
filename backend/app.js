@@ -14,12 +14,14 @@ const handleError = require('./middlewares/handleError');
 const NotFoundError = require('./utils/notFoundError');
 const { validateLogin, validateRegister } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('./middlewares/cors');
 
 const app = express();
 
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors);
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
