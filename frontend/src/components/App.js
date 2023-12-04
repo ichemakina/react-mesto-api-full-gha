@@ -38,20 +38,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loggedIn) {
-      Promise.all([
-        api.getUserInfo(),
-        api.getInitialCards()
-      ])
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData);
-          setCards(cardData);
-        })
-        .catch(console.error);
-    }
-  }, [loggedIn]);
-
-  useEffect(() => {
     function handleTokenCheck() {
       if (localStorage.getItem('token')) {
         const token = localStorage.getItem('token');
@@ -67,6 +53,20 @@ function App() {
 
     handleTokenCheck();
   }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([
+        api.getUserInfo(),
+        api.getInitialCards()
+      ])
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData);
+          setCards(cardData);
+        })
+        .catch(console.error);
+    }
+  }, [loggedIn]);
 
   function handleRegister(email, password) {
     register(email, password)
@@ -128,7 +128,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {

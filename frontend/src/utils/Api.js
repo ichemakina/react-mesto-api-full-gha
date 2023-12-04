@@ -18,19 +18,29 @@ class Api {
         return fetch(url, options).then(this._checkResponse)
     }
 
+    setToken(token) {
+        this._headers['authorization'] = `Bearer ${token}`;
+    }
+
     getUserInfo() {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/users/me`, {
             headers: this._headers
         });
     }
 
     getInitialCards() {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/cards`, {
             headers: this._headers
         });
     }
 
     updateUserInfo(data) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -42,6 +52,8 @@ class Api {
     }
 
     addNewCard(data) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/cards`, {
             method: 'POST',
             headers: this._headers,
@@ -53,6 +65,8 @@ class Api {
     }
 
     deleteCard(cardId) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
             headers: this._headers
@@ -60,6 +74,8 @@ class Api {
     }
 
     likeCard(cardId) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: this._headers
@@ -67,6 +83,8 @@ class Api {
     }
 
     deleteLikeCard(cardId) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: this._headers
@@ -74,6 +92,8 @@ class Api {
     }
 
     changeLikeCardStatus(cardId, isLiked) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         if (!isLiked) {
             return this.likeCard(cardId);
         }
@@ -83,6 +103,8 @@ class Api {
     }
 
     updateUserAvatar(avatarLink) {
+        const token = localStorage.getItem('token');
+        api.setToken(token);
         return this._request(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,

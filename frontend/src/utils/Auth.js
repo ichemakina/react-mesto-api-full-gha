@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3000';
 
 function checkResponse(result) {
     if (result.ok) {
@@ -20,8 +20,8 @@ export function register(email, password) {
             email: email
         })
     })
-    .then(checkResponse)
-    .then(res => res.data);
+        .then(checkResponse)
+        .then(res => res.data);
 };
 
 export function authorize(email, password) {
@@ -55,5 +55,5 @@ export function checkToken(token) {
         }
     })
         .then(checkResponse)
-        .then(res => res.data)
+        .then(res => res)
 }
