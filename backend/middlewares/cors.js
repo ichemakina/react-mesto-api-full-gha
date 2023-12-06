@@ -1,5 +1,7 @@
 const allowedCors = [
   'http://localhost:3001',
+  'http://api.ichemakina.nomoredomainsmonster.ru',
+  'https://api.ichemakina.nomoredomainsmonster.ru',
 ];
 const allowedMethods = 'GET, HEAD, PUT, PATCH, POST, DELETE';
 

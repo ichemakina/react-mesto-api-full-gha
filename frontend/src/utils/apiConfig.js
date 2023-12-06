@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://api.ichemakina.nomoredomainsmonster.ru';
 
 export const apiConfig = {
   baseUrl: baseUrl,
