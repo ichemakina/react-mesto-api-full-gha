@@ -71,10 +71,8 @@ function App() {
   function handleRegister(email, password) {
     register(email, password)
       .then((data) => {
-        setLoggedIn(true);
-        setUserName(data.email);
         setInfoTooltip({ isOpen: true, isSuccess: true });
-        navigate("/", { replace: true });
+        navigate("/sign-in", { replace: true });
       })
       .catch(() => {
         setInfoTooltip({ isOpen: true, isSuccess: false });

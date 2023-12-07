@@ -21,7 +21,7 @@ export function register(email, password) {
         })
     })
         .then(checkResponse)
-        .then(res => res.data);
+        .then(res => res);
 };
 
 export function authorize(email, password) {
