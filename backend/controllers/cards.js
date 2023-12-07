@@ -17,7 +17,12 @@ module.exports.createCard = (req, res, next) => {
 
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(Created).send(card))
-    .catch((err) => next(err));
+    .catch((err) => {
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError('Переданы некорректные данные'));
+      }
+      return next(err);
+    });
 };
 
 module.exports.deleteCard = (req, res, next) => {
@@ -29,8 +34,7 @@ module.exports.deleteCard = (req, res, next) => {
         return Promise.reject(new ForbiddenError('Недостаточно прав'));
       }
       return Card
-        .findByIdAndDelete(cardId)
-        .orFail();
+        .findByIdAndDelete(cardId);
     })
     .then(() => res.send({ message: 'Карточка удалена' }))
     .catch((err) => {
@@ -38,7 +42,7 @@ module.exports.deleteCard = (req, res, next) => {
         return next(new NotFoundError('Карточка не найдена'));
       }
       if (err instanceof mongoose.Error.CastError) {
-        return next(new ValidationError('Карточка не найдена'));
+        return next(new ValidationError('Передан некорректный id'));
       }
       return next(err);
     });
@@ -57,7 +61,7 @@ module.exports.likeCard = (req, res, next) => {
         return next(new NotFoundError('Карточка не найдена'));
       }
       if (err instanceof mongoose.Error.CastError) {
-        return next(new ValidationError('Карточка не найдена'));
+        return next(new ValidationError('Передан некорректный id'));
       }
       return next(err);
     });
@@ -76,7 +80,7 @@ module.exports.dislikeCard = (req, res, next) => {
         return next(new NotFoundError('Карточка не найдена'));
       }
       if (err instanceof mongoose.Error.CastError) {
-        return next(new ValidationError('Карточка не найдена'));
+        return next(new ValidationError('Передан некорректный id'));
       }
       return next(err);
     });

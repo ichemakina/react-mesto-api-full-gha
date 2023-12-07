@@ -57,6 +57,9 @@ module.exports.createUser = (req, res, next) => {
       if (err.code === 11000) {
         return next(new ConflictError('Пользователь с таким email уже существует'));
       }
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError('Переданы некорректные данные'));
+      }
       return next(err);
     });
 };
@@ -64,11 +67,10 @@ module.exports.createUser = (req, res, next) => {
 module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        return next(new NotFoundError('Пользователь не найден'));
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError('Переданы некорректные данные'));
       }
       return next(err);
     });
@@ -77,11 +79,10 @@ module.exports.updateUser = (req, res, next) => {
 module.exports.updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        return next(new NotFoundError('Пользователь не найден'));
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError('Переданы некорректные данные'));
       }
       return next(err);
     });
