@@ -1,5 +1,6 @@
-const { PORT = 3000 } = process.env;
 require('dotenv').config();
+
+const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 const express = require('express');
 const helmet = require('helmet');
